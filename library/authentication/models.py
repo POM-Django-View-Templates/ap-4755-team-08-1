@@ -1,15 +1,33 @@
-from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+#
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db import models
-from django.utils import timezone
 
 ROLE_CHOICES = (
     (0, "visitor"),
     (1, "admin"),
 )
+####
 
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("The Email field must be set")
 
+        extra_fields.setdefault("is_active", True)
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("role", 1)
+        extra_fields.setdefault("is_active", True)
+        return self.create_user(email, password, **extra_fields)
+
+####
 class CustomUser(AbstractBaseUser):
     """
     This class represents a basic user. \n
@@ -35,7 +53,11 @@ class CustomUser(AbstractBaseUser):
     type updated_at: bool
 
     """
-
+    #####
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+    objects = CustomUserManager()
+    ####
     first_name = models.CharField(max_length=20, default="")
     last_name = models.CharField(max_length=20, default="")
     middle_name = models.CharField(max_length=20, default="")
@@ -144,6 +166,7 @@ class CustomUser(AbstractBaseUser):
                 first_name=first_name or "",
                 middle_name=middle_name or "",
                 last_name=last_name or "",
+                is_active=True,
             )
             user.set_password(password)
             user.save()
