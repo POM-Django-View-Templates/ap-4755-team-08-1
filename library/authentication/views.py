@@ -35,15 +35,15 @@ def register_view(request):
         
         if user is None:
             messages.error(request, "Invalid data")
-            return redirect('register')
-        if user.role not in ('0', '1'):
+            return redirect('auth:register')
+        if role not in ('0', '1'):
             messages.error(request, "Choose between visitor and admin")
-            return redirect('register')
+            return redirect('auth:register')
         user.role = int(role)
         user.save()
         
         login(request, user)
-        return redirect('dashboard')
+        return redirect('auth:dashboard')
         
     return render(request, 'authentication/register.html')
 
@@ -56,16 +56,16 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('auth:dashboard')
         else:
             messages.error(request, "Invalid email or password")
-            return redirect('login')
+            return redirect('auth:login')
         
     return render(request, 'authentication/login.html')
 
 def dashboard_view(request):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('auth:login')
     
     context = {
         'role': request.user.role
@@ -75,4 +75,4 @@ def dashboard_view(request):
 def logout_view(request):
     # if request.user
     logout(request)
-    return redirect('login')
+    return redirect('auth:login')

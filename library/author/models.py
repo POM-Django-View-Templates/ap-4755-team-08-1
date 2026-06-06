@@ -68,9 +68,9 @@ class Author(models.Model):
         type patronymic: str max_length=20
         :return: a new author object which is also written into the DB
         """
-        if name and len(name)>20:
+        if (name and len(name)>20) or len(name) == 0:
             return None
-        if surname and len(surname)>20:
+        if (surname and len(surname)>20) or len(surname) == 0:
             return None
         if patronymic and len(patronymic)>20:
             return None
