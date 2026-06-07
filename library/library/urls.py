@@ -3,5 +3,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('authentication.urls')), # Маршрути будуть доступні за адресою /auth/login/
+    path('auth/', include('authentication.urls')),
+    path('author/', include('author.urls')),  # Цей рядок обов'язково має бути!
 ]
