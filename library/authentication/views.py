@@ -4,7 +4,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from authentication.models import CustomUser
 
+def home_view(request):
+    if request.user.is_authenticated:
+        return redirect('auth:dashboard')
 
+    return render(request, 'authentication/home.html')
 
 def register_view(request):
     if request.user.is_authenticated:
