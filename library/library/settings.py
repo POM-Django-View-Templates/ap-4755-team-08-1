@@ -81,17 +81,14 @@ WSGI_APPLICATION = 'library.wsgi.application'
 #     }
 # }
 
-DATABASE = "simpledbmamager"
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -159,3 +156,10 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+# Вказуємо шлях до вашої кастомної моделі користувача
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
+# Додаємо бекенд для правильної роботи сесій та авторизації
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
