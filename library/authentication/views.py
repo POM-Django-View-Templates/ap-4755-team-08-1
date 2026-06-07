@@ -12,7 +12,7 @@ def home_view(request):
 
 def register_view(request):
     if request.user.is_authenticated:
-        return redirect('dashboard')
+        return redirect('auth:dashboard')
     
     if request.method == 'POST':
         first_name = request.POST.get('first_name')

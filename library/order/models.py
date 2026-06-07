@@ -2,8 +2,8 @@ from django.db import models
 from django.utils import timezone
 
 class Order(models.Model):
-    book = models.ForeignKey('book.Book', on_delete=models.CASCADE)
-    user = models.ForeignKey('authentication.CustomUser', on_delete=models.CASCADE)
+    book = models.ForeignKey('book.Book', on_delete=models.CASCADE, related_name='user_orders')
+    user = models.ForeignKey('authentication.CustomUser', on_delete=models.CASCADE, related_name='book_orders')
     created_at = models.DateTimeField(auto_now_add=True)
     end_at = models.DateTimeField(null=True)
     plated_end_at = models.DateTimeField()
