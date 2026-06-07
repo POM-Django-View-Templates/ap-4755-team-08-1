@@ -35,11 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Ваші додатки:
     'authentication',
     'author',
     'book',
-    'order'
+    'order',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
