@@ -1,0 +1,1 @@
+{ "tests": [ { "name": "Django Tests", "setup-command": "pip install -r requirements.txt || pip install django pytz", "command": "python library/manage.py test", "timeout": 10, "points": 10 } ] }
