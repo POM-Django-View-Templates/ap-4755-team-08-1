@@ -5,6 +5,11 @@
   <button type="submit">Log in</button>
 </form>
 
+<div>
+  <a href="{% url 'auth:home' %}">Home</a>
+  <a href="{% url 'auth:register' %}">Register</a>
+</div>
+
 {% if messages %} {% for message in messages %}
 <p>{{message}}</p>
 {% endfor %} {% endif %}

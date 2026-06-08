@@ -79,4 +79,4 @@ def dashboard_view(request):
 def logout_view(request):
     # if request.user
     logout(request)
-    return redirect('auth:login')
+    return redirect('auth:home')
