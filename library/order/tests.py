@@ -124,9 +124,8 @@ class TestOrderModel(TestCase):
         order = Order.create(user, self.book2, TEST_DATE_END)
         self.assertIsNone(order)
 
-    def test_create_negative_limit_book(self):
-        """ Positive Test of the CustomUser.create method TEST_DATE_END"""
-
+    
+    
         order = Order.create(self.user_free, self.book1, TEST_DATE_END)
         self.assertIsNone(order)
 
